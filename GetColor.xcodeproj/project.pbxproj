@@ -16,6 +16,7 @@
 		2DB787BA29828F5900C29D40 /* GetColorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB787B929828F5900C29D40 /* GetColorTests.swift */; };
 		2DB787C429828F5900C29D40 /* GetColorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB787C329828F5900C29D40 /* GetColorUITests.swift */; };
 		2DB787C629828F5900C29D40 /* GetColorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB787C529828F5900C29D40 /* GetColorUITestsLaunchTests.swift */; };
+		2DB787D32983A85500C29D40 /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB787D22983A85500C29D40 /* GraphView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		2DB787BF29828F5900C29D40 /* GetColorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GetColorUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2DB787C329828F5900C29D40 /* GetColorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetColorUITests.swift; sourceTree = "<group>"; };
 		2DB787C529828F5900C29D40 /* GetColorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetColorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2DB787D22983A85500C29D40 /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				2DB787A429828F5700C29D40 /* SceneDelegate.swift */,
 				2DB787A629828F5700C29D40 /* ViewController.swift */,
 				2DB787A829828F5700C29D40 /* Main.storyboard */,
+				2DB787D22983A85500C29D40 /* GraphView.swift */,
 				2DB787AB29828F5900C29D40 /* Assets.xcassets */,
 				2DB787AD29828F5900C29D40 /* LaunchScreen.storyboard */,
 				2DB787B029828F5900C29D40 /* Info.plist */,
@@ -261,6 +264,7 @@
 				2DB787A729828F5700C29D40 /* ViewController.swift in Sources */,
 				2DB787A329828F5700C29D40 /* AppDelegate.swift in Sources */,
 				2DB787A529828F5700C29D40 /* SceneDelegate.swift in Sources */,
+				2DB787D32983A85500C29D40 /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -440,6 +444,7 @@
 				DEVELOPMENT_TEAM = Q2A2DTV2D2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GetColor/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "use camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -468,6 +473,7 @@
 				DEVELOPMENT_TEAM = Q2A2DTV2D2;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = GetColor/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "use camera";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
