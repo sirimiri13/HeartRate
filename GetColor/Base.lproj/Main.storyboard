@@ -22,13 +22,26 @@
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9y-oL-tNa" customClass="GraphView" customModule="GetColor" customModuleProvider="target">
-                                <rect key="frame" x="16" y="453" width="361" height="254"/>
+                                <rect key="frame" x="16" y="313" width="361" height="254"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kfm-ZY-Fvb">
+                                <rect key="frame" x="100" y="693" width="193" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="gray" title="STOP"/>
+                                <connections>
+                                    <action selector="stopTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="87S-e3-KOi"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kfm-ZY-Fvb" secondAttribute="bottom" constant="90" id="e3W-VL-PUA"/>
+                            <constraint firstItem="kfm-ZY-Fvb" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="100" id="fyd-DE-urf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kfm-ZY-Fvb" secondAttribute="trailing" constant="100" id="olL-FS-F5P"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="VqU-Wl-XCN" id="6L7-00-WUX"/>
