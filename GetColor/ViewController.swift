@@ -19,21 +19,12 @@ enum PixelError: Error {
     case canNotSetupAVSession
 }
 
-
-protocol StartSessionProtocol{
-    func startSession()
-}
-
 private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
 
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
-    //    func startSession() {
-    //        session.startRunning()
-    //        toggleTorch(status: true)
-    //
-    //    }
-    //
+
+    @IBOutlet weak var torchSlider: UISlider!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var graphView: GraphView!
     var session: AVCaptureSession!
@@ -75,8 +66,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     var arrayRed: [Float] = []
-    var arrayGreen: [Float] = []
-    var arrayBlue: [Float] = []
     
     
     override func viewDidLoad() {
@@ -109,6 +98,22 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         super.viewWillDisappear(animated)
         self.session.stopRunning()
     }
+    
+    
+    @IBAction func onChangeTorch(_ sender: Any) {
+     
+        let value = torchSlider.value > 0 ? torchSlider.value : 0.1
+        DispatchQueue.main.async { [self] in
+            do {
+                try selectedDevice!.setTorchModeOn(level: value)
+            }
+            catch  {
+                print("set torch mode on failed")
+            }
+        }
+
+    }
+    
     
     func setupAVCapture(position: AVCaptureDevice.Position) throws {
         
@@ -329,61 +334,21 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         
         // compute the brightness for reg, green, blue and total
         // pull out color values from pixels ---  image is BGRA
-        var greenVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
-        var blueVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
         var redVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
-        
-            vDSP_vfltu8(dataBuffer, 4, &blueVector, 1, vDSP_Length(numberOfPixels))
-            vDSP_vfltu8(dataBuffer+1, 4, &greenVector, 1, vDSP_Length(numberOfPixels))
-            vDSP_vfltu8(dataBuffer+2, 4, &redVector, 1, vDSP_Length(numberOfPixels))
+        vDSP_vfltu8(dataBuffer+2, 4, &redVector, 1, vDSP_Length(numberOfPixels))
             
 
         
         // compute average per color
         var redAverage:Float = 0.0
-        var blueAverage:Float = 0.0
-        var greenAverage:Float = 0.0
        
         
         // tính trung bình màu trong 1 khoảng numberOfPixels
         vDSP_meamgv(&redVector, 1, &redAverage, vDSP_Length(numberOfPixels))
-        vDSP_meamgv(&greenVector, 1, &greenAverage, vDSP_Length(numberOfPixels))
-        vDSP_meamgv(&blueVector, 1, &blueAverage, vDSP_Length(numberOfPixels))
-        
+
         
        print("=>red: \(redAverage)")
-        
-        
-        
         arrayRed.append(redAverage)
-        
-        // convert to HSV ( hue, saturation, value )
-        // this gives faster, more accurate answer
-        var hue: CGFloat = 0.0
-        var saturation: CGFloat = 0.0
-        var brightness: CGFloat = 0.0
-        var alpha: CGFloat = 1.0
-        let color: UIColor = UIColor(red: CGFloat(redAverage/255.0), green: CGFloat(greenAverage/255.0), blue: CGFloat(blueAverage/255.0), alpha: alpha)
-        color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-        
-        
-        
-        
-        // 5 count rolling average
-        let currentHueAverage = hue/movingAverageCount
-        movingAverageArray.remove(at: 0)
-        movingAverageArray.append(currentHueAverage)
-        
-        let movingAverage = movingAverageArray[0] + movingAverageArray[1] + movingAverageArray[2] + movingAverageArray[3] + movingAverageArray[4]
-        DispatchQueue.global(qos: .background).async {
-            
-            // Background Thread
-            
-            DispatchQueue.main.async {
-                self.graphView.addX(x: Float(movingAverage))
-                //                self.collectDataForFFT(red: Float(movingAverage), green: Float(saturation), blue: Float(brightness))
-            }
-        }
         
     }
 }
