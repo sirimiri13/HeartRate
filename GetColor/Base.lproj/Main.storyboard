@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,14 +17,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VqU-Wl-XCN">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VqU-Wl-XCN">
                                 <rect key="frame" x="16" y="116" width="361" height="112"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e9y-oL-tNa" customClass="GraphView" customModule="GetColor" customModuleProvider="target">
-                                <rect key="frame" x="16" y="313" width="361" height="254"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e9y-oL-tNa" customClass="GraphView" customModule="GetColor" customModuleProvider="target">
+                                <rect key="frame" x="16" y="314" width="361" height="253"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ve-Hb-yrh">
@@ -57,19 +55,40 @@
                                     <action selector="stopTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="87S-e3-KOi"/>
                                 </connections>
                             </button>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.29999999999999999" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Yfg-MD-fFp">
+                                <rect key="frame" x="48" y="236" width="297" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="ElK-3Y-Utr"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onChangeTorch:" destination="BYZ-38-t0r" eventType="valueChanged" id="vYh-0D-yj7"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemTealColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="4ve-Hb-yrh" secondAttribute="bottom" constant="120" id="DPs-mq-O40"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="kfm-ZY-Fvb" secondAttribute="bottom" constant="120" id="L7I-fs-fJ1"/>
-                            <constraint firstItem="4ve-Hb-yrh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="biE-bq-X6g"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="kfm-ZY-Fvb" secondAttribute="trailing" constant="20" id="xgQ-qu-FSa"/>
+                            <constraint firstItem="Yfg-MD-fFp" firstAttribute="centerX" secondItem="e9y-oL-tNa" secondAttribute="centerX" id="4HY-T7-L57"/>
+                            <constraint firstItem="e9y-oL-tNa" firstAttribute="top" secondItem="Yfg-MD-fFp" secondAttribute="bottom" constant="48" id="H8M-VF-vUb"/>
+                            <constraint firstItem="e9y-oL-tNa" firstAttribute="leading" secondItem="VqU-Wl-XCN" secondAttribute="leading" id="JNe-4o-E2E"/>
+                            <constraint firstItem="Yfg-MD-fFp" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="R0C-K2-n19"/>
+                            <constraint firstItem="Yfg-MD-fFp" firstAttribute="centerX" secondItem="VqU-Wl-XCN" secondAttribute="centerX" id="YLD-2u-Kbr"/>
+                            <constraint firstItem="VqU-Wl-XCN" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="57" id="Z2n-Zw-KcI"/>
+                            <constraint firstAttribute="bottom" secondItem="e9y-oL-tNa" secondAttribute="bottom" constant="285" id="ZL2-XS-hiO"/>
+                            <constraint firstItem="kfm-ZY-Fvb" firstAttribute="leading" secondItem="4ve-Hb-yrh" secondAttribute="trailing" constant="13" id="aLp-MV-rjU"/>
+                            <constraint firstItem="Yfg-MD-fFp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="50" id="agQ-jp-UcD"/>
+                            <constraint firstItem="4ve-Hb-yrh" firstAttribute="top" secondItem="e9y-oL-tNa" secondAttribute="bottom" constant="96" id="lut-3L-UXm"/>
+                            <constraint firstItem="4ve-Hb-yrh" firstAttribute="baseline" secondItem="kfm-ZY-Fvb" secondAttribute="baseline" id="mWy-z2-cMK"/>
+                            <constraint firstItem="e9y-oL-tNa" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="qJT-2I-J74"/>
+                            <constraint firstItem="Yfg-MD-fFp" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" constant="236" id="u4x-c5-sMd"/>
+                            <constraint firstItem="4ve-Hb-yrh" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="xfg-Yv-DOA"/>
+                            <constraint firstItem="Yfg-MD-fFp" firstAttribute="top" secondItem="VqU-Wl-XCN" secondAttribute="bottom" constant="8" id="yuL-6E-dar"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="cameraView" destination="VqU-Wl-XCN" id="6L7-00-WUX"/>
-                        <outlet property="graphView" destination="e9y-oL-tNa" id="H6t-To-LBx"/>
+                        <outlet property="graphView" destination="e9y-oL-tNa" id="x71-qi-uzf"/>
+                        <outlet property="torchSlider" destination="Yfg-MD-fFp" id="xVH-CC-V0O"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

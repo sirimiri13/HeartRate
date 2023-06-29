@@ -20,17 +20,15 @@ enum PixelError: Error {
     case canNotSetupAVSession
 }
 
-
-protocol StartSessionProtocol{
-    func startSession()
-}
-
 private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
 
 
-class ViewController:  UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
-    @IBOutlet weak var graphView: GraphView!
+
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
+
+    @IBOutlet weak var torchSlider: UISlider!
     @IBOutlet weak var cameraView: UIView!
+    @IBOutlet weak var graphView: GraphView!
     var session: AVCaptureSession!
     
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -79,9 +77,7 @@ class ViewController:  UIViewController, AVCaptureVideoDataOutputSampleBufferDel
     
     
     var arrayRed: [Float] = []
-    
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -171,6 +167,22 @@ class ViewController:  UIViewController, AVCaptureVideoDataOutputSampleBufferDel
 //
     
     
+    
+    
+    
+    @IBAction func onChangeTorch(_ sender: Any) {
+     
+        let value = torchSlider.value > 0 ? torchSlider.value : 0.1
+        DispatchQueue.main.async { [self] in
+            do {
+                try selectedDevice!.setTorchModeOn(level: value)
+            }
+            catch  {
+                print("set torch mode on failed")
+            }
+        }
+
+    }
     
     
     func setupAVCapture(position: AVCaptureDevice.Position) throws {
@@ -465,99 +477,51 @@ class ViewController:  UIViewController, AVCaptureVideoDataOutputSampleBufferDel
 
                    DispatchQueue.main.async {
                        self.graphView.addX(x: Float(redAverage))
-                       self.collectDataForFFT(red: Float(redAverage), green: Float(saturation), blue: Float(brightness))
+                     
                    }
                }
                
         }
-    }
-    func collectDataForFFT( red: Float, green: Float, blue: Float ){
-          
-          // first fill up array
-          if  dataCount < windowSize {
-              inputSignal[dataCount] = red
-              dataCount+=1
-              
-              // then pop oldest off top push newest onto end
-          }else{
-              
-              inputSignal.remove(at: 0)
-              inputSignal.append(red)
-          }
-          
-          
-          
-          // call fft ~ once per second
-          if  fftLoopCount > Int(fps) {
-              fftLoopCount = 0
-              FFT()
-              
-          }else{ fftLoopCount+=1; }
-          
-          
-      }
-      
-      
-      
-      
-      
-      func FFT(){
-          
-          
-          // parse data input into complex vector
-          var zerosR = [Float](repeating: 0.0, count: windowSizeOverTwo)
-          var zerosI = [Float](repeating: 0.0,count: windowSizeOverTwo)
-          var cplxData = DSPSplitComplex( realp: &zerosR, imagp: &zerosI )
-          
-          
-          
-          inputSignal.withUnsafeBufferPointer {buffer in
-              buffer.baseAddress!.withMemoryRebound(to: DSPComplex.self, capacity: inputSignal.count / (MemoryLayout<DSPComplex>.size/MemoryLayout<Float>.size)) {xAsComplex in
-                  vDSP_ctoz( xAsComplex, 2, &cplxData, 1, vDSP_Length(windowSizeOverTwo) )
+        
+        // get the image from the camera
+        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        
+        let unlockFlags =  CVPixelBufferLockFlags();
+        
+        // lock buffer
+        CVPixelBufferLockBaseAddress(pixelBuffer!, unlockFlags);
+        
+        // grab image info
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        
+        // get pointer to the pixel array
+        let src_buff = CVPixelBufferGetBaseAddress(imageBuffer!)
+        let dataBuffer = src_buff!.assumingMemoryBound(to: UInt8.self)
+        
+        // unlock buffer
+        CVPixelBufferUnlockBaseAddress(imageBuffer!, unlockFlags)
+        
+        
+        
+        // compute the brightness for reg, green, blue and total
+        // pull out color values from pixels ---  image is BGRA
+        var redVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
+        vDSP_vfltu8(dataBuffer+2, 4, &redVector, 1, vDSP_Length(numberOfPixels))
+            
 
-              }
-          }
-          
-          
-          
-          //perform fft
-          vDSP_fft_zrip( setup, &cplxData, 1, log2n, FFTDirection(kFFTDirection_Forward) )
-          
-          
-          
-          //calculate power
-          var powerVector = [Float](repeating: 0.0, count: windowSize)
-          vDSP_zvmags(&cplxData, 1, &powerVector, 1, vDSP_Length(windowSizeOverTwo))
-          
-          // find peak power and bin
-          var power = 0.0 as Float
-          var bin = 0 as vDSP_Length
-          
-          
-          
-          
-          // calculate heart rate, ie pulse
-          // course bandwidth filter --- skip hr under/over unreasonable amounts
-          let minHeartRate = 20                                       // skip anything lower ~35 bpm
-          let maxHeartRate = Double(windowSizeOverTwo) / 4            // skip anything over ~225 bpm
-          vDSP_maxvi(&powerVector+minHeartRate, 1, &power, &bin, vDSP_Length(maxHeartRate))
-          bin += vDSP_Length(minHeartRate)
-          
-          
-          
-          
-          // push heart rate data to the user
-//          let timeElapsed = NSDate().timeIntervalSinceDate(timeElapsedStart)
-//          timeLabel.text = NSString(format: "Seconds: %d", Int(timeElapsed)) as String
-          
-          let binSize = fps * 60.0 / Float(windowSize)
-          let errorSize = fps * 60.0 / Float(windowSize)
-          
-          let bpm = Float(bin) / Float(windowSize) * (fps * 60.0)
-          print("bpm: \(bpm)")
-//          pulseLabel.text = ("\(Int(bpm))")
-          
-          
-      }
+        
+        // compute average per color
+        var redAverage:Float = 0.0
+       
+        
+        // tính trung bình màu trong 1 khoảng numberOfPixels
+        vDSP_meamgv(&redVector, 1, &redAverage, vDSP_Length(numberOfPixels))
+
+        
+       print("=>red: \(redAverage)")
+        arrayRed.append(redAverage)
+        
+    }
+   
 }
 
