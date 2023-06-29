@@ -52,7 +52,7 @@ class GraphView: UIView
         
         
         // scale incoming data and insert it into data array
-        let xScaled = CGFloat(x * scale / Float(height))
+        let xScaled = CGFloat((x * scale).truncatingRemainder(dividingBy: Float(height)) )
         
         dataArrayX.insert(xScaled, at: 0)
         dataArrayX.removeLast()
@@ -74,8 +74,8 @@ class GraphView: UIView
             // plot x
             context?.move(to: CGPoint(x: mark-1, y: self.dataArrayX[i-1] ))
             context?.addLine(to: CGPoint(x: mark, y: self.dataArrayX[i]))
-            
-            context!.setLineWidth(3.0)
+        
+            context!.setLineWidth(2.0)
             context!.strokePath()
                         
         }
