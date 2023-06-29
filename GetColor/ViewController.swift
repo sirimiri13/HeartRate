@@ -25,7 +25,7 @@ private var videoDataOutputQueue = DispatchQueue(label: "VideoDataOutputQueue")
 
 
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
-
+    
     @IBOutlet weak var torchSlider: UISlider!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var graphView: GraphView!
@@ -44,7 +44,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var width = 0
     var numberOfPixels = 0
     var startTime: CFAbsoluteTime!
-
+    
     var timer: [Float] = []
     
     // used to compute frames per second
@@ -66,10 +66,10 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     // collects data from image and stores for fft
-       var dataCount = 0           // tracks how many data points we have ready for fft
-       var fftLoopCount = 0        // how often we grab data between fft calls
+    var dataCount = 0           // tracks how many data points we have ready for fft
+    var fftLoopCount = 0        // how often we grab data between fft calls
     var inputSignal:[Float] = Array(repeating: 0.0, count: 512)
-
+    
     
     var movingAverageArray:[CGFloat] = [0.0, 0.0, 0.0, 0.0, 0.0]      // used to store rolling average
     var movingAverageCount:CGFloat = 5.0                              // window size
@@ -77,41 +77,41 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     var arrayRed: [Float] = []
     var isMeasuring = false
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       
+        
         log2n = vDSP_Length(log2(Double(windowSize)))
         setup = vDSP_create_fftsetup(log2n, FFTRadix(kFFTRadix2))
         graphView.setupGraphView()
         startButton.isEnabled = true
         stopButton.isEnabled = false
-    
+        
     }
     
-   
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.session.stopRunning()
     }
-   
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-   
+    
     
     
     
     
     @IBAction func onChangeTorch(_ sender: Any) {
-     
+        
         let value = torchSlider.value > 0 ? torchSlider.value : 0.1
         DispatchQueue.main.async { [self] in
             do {
@@ -121,7 +121,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 print("set torch mode on failed")
             }
         }
-
+        
     }
     
     
@@ -170,11 +170,11 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         connection.isEnabled = true
         preparecameraViewLayer(for: session)
         DispatchQueue.global(qos: .background).async { [self] in //[weak self] in
-
+            
             session.startRunning()
             toggleTorch(device: selectedDevice!, on: true)
-
-//            configureDevice(captureDevice: selectedDevice!)
+            
+            //            configureDevice(captureDevice: selectedDevice!)
         }
         
         
@@ -183,7 +183,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     func configureDevice(captureDevice:AVCaptureDevice ) {
         if let tempDevice = selectedDevice {
-
+            
             // 1
             for vFormat in captureDevice.formats {
                 // 2
@@ -193,16 +193,16 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
                 if frameRates.maxFrameRate == 240 {
                     // 4
                     try! tempDevice.lockForConfiguration()
-
+                    
                     tempDevice.activeFormat = vFormat as AVCaptureDevice.Format
                     tempDevice.activeVideoMinFrameDuration = CMTimeMake(value: 1, timescale: Int32(240))
                     tempDevice.activeVideoMaxFrameDuration = CMTimeMake(value: 1, timescale: Int32(240))
                     tempDevice.focusMode = AVCaptureDevice.FocusMode.locked
-
+                    
                 }
             }
         }
-
+        
     }
     
     func preparecameraViewLayer(for session: AVCaptureSession) {
@@ -220,14 +220,14 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         cameraView.addSubview(maskView)
         cameraView.bringSubviewToFront(maskView)
         maskView.frame = cameraView.bounds
-             cameraViewLayer.frame = cameraView.bounds
+        cameraViewLayer.frame = cameraView.bounds
         
     }
     func toggleTorch(device: AVCaptureDevice,on: Bool) {
-       try! device.lockForConfiguration()
+        try! device.lockForConfiguration()
         if device.hasTorch {
             if on == true {
-            
+                
                 device.torchMode = .on
             } else {
                 device.torchMode = .off
@@ -241,39 +241,42 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
     @IBAction func startMeasure(_ sender: Any) {
-            try! setupAVCapture(position: .back)
+        try! setupAVCapture(position: .back)
         startButton.isEnabled = false
         stopButton.isEnabled = true
     }
     //
     @IBAction func stopTapped(_ sender: Any) {
-            session.stopRunning()
+        session.stopRunning()
         startButton.isEnabled = true
         stopButton.isEnabled = false
-
-            let fileName = "Tasks.csv"
-            let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-            var csvText = "Time,Red\n"
-            for i in 0..<arrayRed.count{
-                let red = arrayRed[i]
-                let negativeValue = -red
-                let replaceValue = "\(negativeValue)".replacingOccurrences(of: ".", with: ",")
-                let newLine = "\(timer[i]),\(replaceValue)\n"
-                csvText.append(newLine)
-            }
-            
-            self.save(text: csvText, toDirectory: self.documentDirectory(), withFileName: "RedColor.csv")
-            do {
-                try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-                isMeasuring = false
-            } catch {
-                print("Failed to create file")
-                print("\(error)")
-            }
-            print(path ?? "not found")
-            
-    
-      
+        
+        let fileName = "Tasks.csv"
+        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+        var csvText = "Time,Red\n"
+        print("===> timer: \(timer.count)")
+        print("===> arrayRed: \(arrayRed.count)")
+        
+        for i in 0..<arrayRed.count{
+            let red = arrayRed[i]
+            let negativeValue = -red
+            let replaceValue = "\(negativeValue)".replacingOccurrences(of: ".", with: ",")
+            let newLine = "\(timer[i]),\(replaceValue)\n"
+            csvText.append(newLine)
+        }
+        
+        self.save(text: csvText, toDirectory: self.documentDirectory(), withFileName: "RedColor.csv")
+        do {
+            try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+            isMeasuring = false
+        } catch {
+            print("Failed to create file")
+            print("\(error)")
+        }
+        print(path ?? "not found")
+        
+        
+        
     }
     
     
@@ -289,8 +292,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             try text.write(toFile: filePath,
                            atomically: true,
                            encoding: .utf8)
-            
-            
             
         } catch {
             print("Error", error)
@@ -328,145 +329,90 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         fps = 1.0/Float(newDate.timeIntervalSince(oldDate as Date))
         oldDate = newDate
         
-       
-         if let croppedSampleBuffer = cropSampleBuffer(sampleBuffer, cropRect: CGRect(x: 100, y: 100, width: 200, height: 200)) {
-             
-               // get the image from the camera
-               let pixelBuffer = CMSampleBufferGetImageBuffer(croppedSampleBuffer)
-               
-               let unlockFlags =  CVPixelBufferLockFlags();
-               
-               // lock buffer
-               CVPixelBufferLockBaseAddress(pixelBuffer!, unlockFlags);
-               
-               // grab image info
-               let imageBuffer = CMSampleBufferGetImageBuffer(croppedSampleBuffer)
-               
-               // get pointer to the pixel array
-               let src_buff = CVPixelBufferGetBaseAddress(imageBuffer!)
-               let dataBuffer = src_buff!.assumingMemoryBound(to: UInt8.self)
-               // unlock buffer
-               CVPixelBufferUnlockBaseAddress(imageBuffer!, unlockFlags)
-               
-               
-               
-               // compute the brightness for reg, green, blue and total
-               // pull out color values from pixels ---  image is BGRA
-               var greenVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
-               var blueVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
-               var redVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
-               vDSP_vfltu8(dataBuffer, 4, &blueVector, 1, vDSP_Length(numberOfPixels))
-               vDSP_vfltu8(dataBuffer+1, 4, &greenVector, 1, vDSP_Length(numberOfPixels))
-               vDSP_vfltu8(dataBuffer+2, 4, &redVector, 1, vDSP_Length(numberOfPixels))
-               
-               
-               
-               
-               // compute average per color
-               var redAverage:Float = 0.0
-               var blueAverage:Float = 0.0
-               var greenAverage:Float = 0.0
-               
-               
-               // tính trung bình màu trong 1 khoảng numberOfPixels
-               vDSP_meamgv(&redVector, 1, &redAverage, vDSP_Length(numberOfPixels))
-               vDSP_meamgv(&greenVector, 1, &greenAverage, vDSP_Length(numberOfPixels))
-               vDSP_meamgv(&blueVector, 1, &blueAverage, vDSP_Length(numberOfPixels))
-       //
-             
-             
-             print("====>red: \(redAverage)")
-               
-               arrayRed.append(redAverage)
-               
-               
-               if startTime == nil {
-                          startTime = CFAbsoluteTimeGetCurrent()
-                      }
-                      
-                      // Process the video frame here
-                      
-                      let currentTime = CFAbsoluteTimeGetCurrent()
-                      let elapsedTime = currentTime - startTime
-               timer.append(Float(elapsedTime))
-
-                      
-               
-             
-               var hue: CGFloat = 0.0
-                    var saturation: CGFloat = 0.0
-                    var brightness: CGFloat = 0.0
-                    var alpha: CGFloat = 1.0
+        
+        if let croppedSampleBuffer = cropSampleBuffer(sampleBuffer, cropRect: CGRect(x: 100, y: 100, width: 200, height: 200)) {
+            
+            // get the image from the camera
+            let pixelBuffer = CMSampleBufferGetImageBuffer(croppedSampleBuffer)
+            
+            let unlockFlags =  CVPixelBufferLockFlags();
+            
+            // lock buffer
+            CVPixelBufferLockBaseAddress(pixelBuffer!, unlockFlags);
+            
+            // grab image info
+            let imageBuffer = CMSampleBufferGetImageBuffer(croppedSampleBuffer)
+            
+            // get pointer to the pixel array
+            let src_buff = CVPixelBufferGetBaseAddress(imageBuffer!)
+            let dataBuffer = src_buff!.assumingMemoryBound(to: UInt8.self)
+            // unlock buffer
+            CVPixelBufferUnlockBaseAddress(imageBuffer!, unlockFlags)
+            
+            
+            
+            // compute the brightness for reg, green, blue and total
+            // pull out color values from pixels ---  image is BGRA
+            var greenVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
+            var blueVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
+            var redVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
+            vDSP_vfltu8(dataBuffer, 4, &blueVector, 1, vDSP_Length(numberOfPixels))
+            vDSP_vfltu8(dataBuffer+1, 4, &greenVector, 1, vDSP_Length(numberOfPixels))
+            vDSP_vfltu8(dataBuffer+2, 4, &redVector, 1, vDSP_Length(numberOfPixels))
+            
+            
+            
+            
+            // compute average per color
+            var redAverage:Float = 0.0
+            var blueAverage:Float = 0.0
+            var greenAverage:Float = 0.0
+            
+            
+            // tính trung bình màu trong 1 khoảng numberOfPixels
+            vDSP_meamgv(&redVector, 1, &redAverage, vDSP_Length(numberOfPixels))
+            vDSP_meamgv(&greenVector, 1, &greenAverage, vDSP_Length(numberOfPixels))
+            vDSP_meamgv(&blueVector, 1, &blueAverage, vDSP_Length(numberOfPixels))
+            //
+            
+            
+            
+            arrayRed.append(redAverage)
+            
+            
+            if startTime == nil {
+                startTime = CFAbsoluteTimeGetCurrent()
+                
+            }
+            let currentTime = CFAbsoluteTimeGetCurrent()
+            let elapsedTime = currentTime - startTime
+            timer.append(Float(elapsedTime))
+            
+            // Process the video frame here
+            
+            
+            var hue: CGFloat = 0.0
+            var saturation: CGFloat = 0.0
+            var brightness: CGFloat = 0.0
+            var alpha: CGFloat = 1.0
+            
+            let color: UIColor = UIColor(red: CGFloat(redAverage/255.0), green: CGFloat(greenAverage/255.0), blue: CGFloat(blueAverage/255.0), alpha: alpha)
+            color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
+            
+            DispatchQueue.global(qos: .background).async {
+                // Background Thread
+                
+                DispatchQueue.main.async {
+                    self.graphView.addX(x: Float(redAverage))
                     
-               let color: UIColor = UIColor(red: CGFloat(redAverage/255.0), green: CGFloat(greenAverage/255.0), blue: CGFloat(blueAverage/255.0), alpha: alpha)
-                    color.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
-                    
-                    
-                    
-                    
-                    // 5 count rolling average
-       //             let currentHueAverage = hue/movingAverageCount
-       //             movingAverageArray.remove(at: 0)
-       //             movingAverageArray.append(currentHueAverage)
-                    
-       //             let movingAverage = movingAverageArray[0] + movingAverageArray[1] + movingAverageArray[2] + movingAverageArray[3] + movingAverageArray[4]
-                    
-                    
-                    
-                    
-                    // send to graph and fft
-                  
-               DispatchQueue.global(qos: .background).async {
-
-                   // Background Thread
-
-                   DispatchQueue.main.async {
-                       self.graphView.addX(x: Float(redAverage))
-                     
-                   }
-               }
-               
+                }
+            }
+            
         }
         
-        // get the image from the camera
-        let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         
-        let unlockFlags =  CVPixelBufferLockFlags();
-        
-        // lock buffer
-        CVPixelBufferLockBaseAddress(pixelBuffer!, unlockFlags);
-        
-        // grab image info
-        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        
-        // get pointer to the pixel array
-        let src_buff = CVPixelBufferGetBaseAddress(imageBuffer!)
-        let dataBuffer = src_buff!.assumingMemoryBound(to: UInt8.self)
-        
-        // unlock buffer
-        CVPixelBufferUnlockBaseAddress(imageBuffer!, unlockFlags)
-        
-        
-        
-        // compute the brightness for reg, green, blue and total
-        // pull out color values from pixels ---  image is BGRA
-        var redVector:[Float] = Array(repeating: 0.0, count: numberOfPixels)
-        vDSP_vfltu8(dataBuffer+2, 4, &redVector, 1, vDSP_Length(numberOfPixels))
-            
-
-        
-        // compute average per color
-        var redAverage:Float = 0.0
-       
-        
-        // tính trung bình màu trong 1 khoảng numberOfPixels
-        vDSP_meamgv(&redVector, 1, &redAverage, vDSP_Length(numberOfPixels))
-
-        
-       print("=>red: \(redAverage)")
-        arrayRed.append(redAverage)
         
     }
-   
+    
 }
 
