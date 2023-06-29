@@ -88,6 +88,8 @@
                     <connections>
                         <outlet property="cameraView" destination="VqU-Wl-XCN" id="6L7-00-WUX"/>
                         <outlet property="graphView" destination="e9y-oL-tNa" id="x71-qi-uzf"/>
+                        <outlet property="startButton" destination="4ve-Hb-yrh" id="ZN8-uZ-B9R"/>
+                        <outlet property="stopButton" destination="kfm-ZY-Fvb" id="Ivd-QA-F4B"/>
                         <outlet property="torchSlider" destination="Yfg-MD-fFp" id="xVH-CC-V0O"/>
                     </connections>
                 </viewController>

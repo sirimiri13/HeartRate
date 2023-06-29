@@ -29,6 +29,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     @IBOutlet weak var torchSlider: UISlider!
     @IBOutlet weak var cameraView: UIView!
     @IBOutlet weak var graphView: GraphView!
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
     var session: AVCaptureSession!
     
     var videoDataOutput: AVCaptureVideoDataOutput!
@@ -38,15 +40,12 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     var selectedDevice: AVCaptureDevice?
     let previewLayerConnection : AVCaptureConnection! = nil
     var photoOutput = AVCapturePhotoOutput()
-    
-    
     var height = 0
     var width = 0
     var numberOfPixels = 0
     var startTime: CFAbsoluteTime!
 
     var timer: [Float] = []
-
     
     // used to compute frames per second
     var newDate:NSDate = NSDate()
@@ -77,6 +76,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     
     var arrayRed: [Float] = []
+    var isMeasuring = false
 
     
     override func viewDidLoad() {
@@ -85,7 +85,8 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         log2n = vDSP_Length(log2(Double(windowSize)))
         setup = vDSP_create_fftsetup(log2n, FFTRadix(kFFTRadix2))
         graphView.setupGraphView()
-
+        startButton.isEnabled = true
+        stopButton.isEnabled = false
     
     }
     
@@ -93,12 +94,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
-    
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        maskView.frame = cameraView.bounds
-//        cameraViewLayer.frame = cameraView.bounds
-//    }
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.session.stopRunning()
@@ -110,62 +106,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }
     
    
-//
-//
-//    func setupAVCapture(position: AVCaptureDevice.Position) throws {
-//
-//        if let existedSession = session, existedSession.isRunning {
-//            existedSession.stopRunning()
-//        }
-//
-//        session = AVCaptureSession()
-//
-//
-//        session.sessionPreset = AVCaptureSession.Preset.hd1920x1080
-//        height = 1920
-//        width = 1080
-//        numberOfPixels = height * width
-//
-//        guard let device = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: position) else {
-//            throw PixelError.canNotSetupAVSession
-//        }
-//
-//        selectedDevice = device
-//        let deviceInput = try AVCaptureDeviceInput(device: device)
-//        guard session.canAddInput(deviceInput) else {
-//            throw PixelError.canNotSetupAVSession
-//        }
-//
-//        session.addInput(deviceInput)
-//
-//
-//        videoDataOutput = AVCaptureVideoDataOutput()
-//        videoDataOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String : kCVPixelFormatType_32BGRA]
-//        videoDataOutput.alwaysDiscardsLateVideoFrames = true
-//        videoDataOutput.setSampleBufferDelegate(self, queue: videoDataOutputQueue)
-//
-//        guard session.canAddOutput(videoDataOutput) else {
-//            throw PixelError.canNotSetupAVSession
-//        }
-//
-//        session.addOutput(videoDataOutput)
-//
-//        guard let connection = videoDataOutput.connection(with: .video) else {
-//            throw PixelError.canNotSetupAVSession
-//        }
-//
-//        connection.isEnabled = true
-//        preparecameraViewLayer(for: session)
-//        DispatchQueue.global(qos: .background).async { [self] in //[weak self] in
-//            session.startRunning()
-//            configureDevice(captureDevice: selectedDevice!)
-//            toggleTorch(device: selectedDevice!, on: true)
-//        }
-//
-//
-//    }
-//
-    
     
     
     
@@ -301,34 +241,39 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         }
     }
     @IBAction func startMeasure(_ sender: Any) {
-//        timeElapsedStart = NSDate()     // reset clock
-       try! setupAVCapture(position: .back)
+            try! setupAVCapture(position: .back)
+        startButton.isEnabled = false
+        stopButton.isEnabled = true
     }
     //
     @IBAction func stopTapped(_ sender: Any) {
-        session.stopRunning()
-        let fileName = "Tasks.csv"
-        let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
-        var csvText = "Time,Red\n"
-//        let filterRed = arrayRed.dropFirst(240)
-//        let filterTimer = timer.dropFirst(240)
-        for i in 0..<arrayRed.count{
-            let red = arrayRed[i]
-            let negativeValue = -red
-            let replaceValue = "\(negativeValue)".replacingOccurrences(of: ".", with: ",")
-            let newLine = "\(timer[i]),\(replaceValue)\n"
-            csvText.append(newLine)
-        }
-        
-        self.save(text: csvText, toDirectory: self.documentDirectory(), withFileName: "RedColor.csv")
-        do {
+            session.stopRunning()
+        startButton.isEnabled = true
+        stopButton.isEnabled = false
+
+            let fileName = "Tasks.csv"
+            let path = NSURL(fileURLWithPath: NSTemporaryDirectory()).appendingPathComponent(fileName)
+            var csvText = "Time,Red\n"
+            for i in 0..<arrayRed.count{
+                let red = arrayRed[i]
+                let negativeValue = -red
+                let replaceValue = "\(negativeValue)".replacingOccurrences(of: ".", with: ",")
+                let newLine = "\(timer[i]),\(replaceValue)\n"
+                csvText.append(newLine)
+            }
             
-            try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
-        } catch {
-            print("Failed to create file")
-            print("\(error)")
-        }
-        print(path ?? "not found")
+            self.save(text: csvText, toDirectory: self.documentDirectory(), withFileName: "RedColor.csv")
+            do {
+                try csvText.write(to: path!, atomically: true, encoding: String.Encoding.utf8)
+                isMeasuring = false
+            } catch {
+                print("Failed to create file")
+                print("\(error)")
+            }
+            print(path ?? "not found")
+            
+    
+      
     }
     
     
