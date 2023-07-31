@@ -1,6 +1,0 @@
-framework module Pods_GetColorTests {
-  umbrella header "Pods-GetColorTests-umbrella.h"
-
-  export *
-  module * { export * }
-}

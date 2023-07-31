@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>1049105503390-j6nquk6l8rmkhhd85scldjatbkvh3dhk.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.1049105503390-j6nquk6l8rmkhhd85scldjatbkvh3dhk</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA1a-46z7jRg6MmCDj43ZangG0OO1-VYk4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>1049105503390</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>huonglam.HeartBeat</string>
+	<key>PROJECT_ID</key>
+	<string>heartbeat-57afb</string>
+	<key>STORAGE_BUCKET</key>
+	<string>heartbeat-57afb.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:1049105503390:ios:b435bce5a5649dda03178f</string>
+</dict>
+</plist>
