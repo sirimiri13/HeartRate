@@ -12,6 +12,9 @@
 		2D3D8D972A74EC94002C27F0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2DB787A829828F5700C29D40 /* Main.storyboard */; };
 		2D9701572A6030B90051702E /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9701562A6030B90051702E /* Color.swift */; };
 		2D9701602A6031EC0051702E /* IntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D97015F2A6031EC0051702E /* IntroduceViewController.swift */; };
+		2D97CFD52A780BB400217A8C /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFD42A780BB400217A8C /* JGProgressHUD */; };
+		2D97CFD92A7810A600217A8C /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFD82A7810A600217A8C /* GoogleSignIn */; };
+		2D97CFDB2A7810A600217A8C /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFDA2A7810A600217A8C /* GoogleSignInSwift */; };
 		2DA389452A74E8D2001B3A64 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA389442A74E8D2001B3A64 /* GlobalConstant.swift */; };
 		2DA389472A74E922001B3A64 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA389462A74E922001B3A64 /* Utilities.swift */; };
 		2DB787A329828F5700C29D40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB787A229828F5700C29D40 /* AppDelegate.swift */; };
@@ -32,9 +35,6 @@
 		2DFD2B5B2A77ED7F000DDF02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DB787AB29828F5900C29D40 /* Assets.xcassets */; };
 		2DFD2B5D2A77F05D000DDF02 /* CheckUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFD2B5C2A77F05D000DDF02 /* CheckUserInfoViewController.swift */; };
 		2DFD2B5F2A77F235000DDF02 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFD2B5E2A77F235000DDF02 /* Extensions.swift */; };
-		34F920E551F94CFBF64BDA90 /* Pods_GetColor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1ACB67768955F3C0E45E3452 /* Pods_GetColor.framework */; };
-		86C20769A90711B3D5EB1C84 /* Pods_GetColorTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6339A6A7C78F451F29E4446E /* Pods_GetColorTests.framework */; };
-		9A30F407753F3AF8CD31B39F /* Pods_GetColor_GetColorUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93DC04AC100485867BAC4D69 /* Pods_GetColor_GetColorUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,11 +55,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1ACB67768955F3C0E45E3452 /* Pods_GetColor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetColor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D1B38C32A3ED41900C23BF1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		2D1DCEFE2A604346004EF4D5 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2D9701562A6030B90051702E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2D97015F2A6031EC0051702E /* IntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
+		2D97CFD62A780F8000217A8C /* GetColorDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GetColorDebug.entitlements; sourceTree = "<group>"; };
 		2DA389442A74E8D2001B3A64 /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		2DA389462A74E922001B3A64 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		2DB7879F29828F5700C29D40 /* GetColor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetColor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,14 +81,6 @@
 		2DE6675D2A74FB30005E1AB5 /* VerifyCodeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeTextField.swift; sourceTree = "<group>"; };
 		2DFD2B5C2A77F05D000DDF02 /* CheckUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserInfoViewController.swift; sourceTree = "<group>"; };
 		2DFD2B5E2A77F235000DDF02 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
-		54D78AA1552A6556AD2A42F1 /* Pods-GetColorTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetColorTests.release.xcconfig"; path = "Target Support Files/Pods-GetColorTests/Pods-GetColorTests.release.xcconfig"; sourceTree = "<group>"; };
-		6339A6A7C78F451F29E4446E /* Pods_GetColorTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetColorTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		852E8DAC57A47E633B366B97 /* Pods-GetColor.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetColor.release.xcconfig"; path = "Target Support Files/Pods-GetColor/Pods-GetColor.release.xcconfig"; sourceTree = "<group>"; };
-		92FD802C637126CC18BA9ACF /* Pods-GetColor-GetColorUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetColor-GetColorUITests.debug.xcconfig"; path = "Target Support Files/Pods-GetColor-GetColorUITests/Pods-GetColor-GetColorUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		93DC04AC100485867BAC4D69 /* Pods_GetColor_GetColorUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GetColor_GetColorUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		B41A4BA60DFC86AA247FEB92 /* Pods-GetColor.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetColor.debug.xcconfig"; path = "Target Support Files/Pods-GetColor/Pods-GetColor.debug.xcconfig"; sourceTree = "<group>"; };
-		CAD9FEDBC539D157012A5371 /* Pods-GetColorTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetColorTests.debug.xcconfig"; path = "Target Support Files/Pods-GetColorTests/Pods-GetColorTests.debug.xcconfig"; sourceTree = "<group>"; };
-		FC67F9526C4184C00A9598F5 /* Pods-GetColor-GetColorUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GetColor-GetColorUITests.release.xcconfig"; path = "Target Support Files/Pods-GetColor-GetColorUITests/Pods-GetColor-GetColorUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,9 +91,11 @@
 				2DE667532A74F970005E1AB5 /* FirebaseAnalytics in Frameworks */,
 				2DE667572A74F970005E1AB5 /* FirebaseCrashlytics in Frameworks */,
 				2DE667552A74F970005E1AB5 /* FirebaseAuth in Frameworks */,
+				2D97CFDB2A7810A600217A8C /* GoogleSignInSwift in Frameworks */,
 				2DFD2B5A2A76A32A000DDF02 /* PhoneNumberKit in Frameworks */,
+				2D97CFD52A780BB400217A8C /* JGProgressHUD in Frameworks */,
 				2DE667592A74F970005E1AB5 /* FirebaseStorage in Frameworks */,
-				34F920E551F94CFBF64BDA90 /* Pods_GetColor.framework in Frameworks */,
+				2D97CFD92A7810A600217A8C /* GoogleSignIn in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -109,7 +103,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86C20769A90711B3D5EB1C84 /* Pods_GetColorTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,7 +110,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A30F407753F3AF8CD31B39F /* Pods_GetColor_GetColorUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,12 +119,6 @@
 		1BA3DB81654AA24CB4E540BB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				B41A4BA60DFC86AA247FEB92 /* Pods-GetColor.debug.xcconfig */,
-				852E8DAC57A47E633B366B97 /* Pods-GetColor.release.xcconfig */,
-				92FD802C637126CC18BA9ACF /* Pods-GetColor-GetColorUITests.debug.xcconfig */,
-				FC67F9526C4184C00A9598F5 /* Pods-GetColor-GetColorUITests.release.xcconfig */,
-				CAD9FEDBC539D157012A5371 /* Pods-GetColorTests.debug.xcconfig */,
-				54D78AA1552A6556AD2A42F1 /* Pods-GetColorTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -194,7 +180,6 @@
 				2DB787C229828F5900C29D40 /* GetColorUITests */,
 				2DB787A029828F5700C29D40 /* Products */,
 				1BA3DB81654AA24CB4E540BB /* Pods */,
-				E17B446ACD0DBA671AA79A97 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -211,6 +196,7 @@
 		2DB787A129828F5700C29D40 /* GetColor */ = {
 			isa = PBXGroup;
 			children = (
+				2D97CFD62A780F8000217A8C /* GetColorDebug.entitlements */,
 				2DE6675C2A74FB16005E1AB5 /* Components */,
 				2D97015A2A60315C0051702E /* View */,
 				2D9701592A60314D0051702E /* Delegate */,
@@ -250,16 +236,6 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
-		E17B446ACD0DBA671AA79A97 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				1ACB67768955F3C0E45E3452 /* Pods_GetColor.framework */,
-				93DC04AC100485867BAC4D69 /* Pods_GetColor_GetColorUITests.framework */,
-				6339A6A7C78F451F29E4446E /* Pods_GetColorTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -267,12 +243,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DB787C929828F5900C29D40 /* Build configuration list for PBXNativeTarget "GetColor" */;
 			buildPhases = (
-				D4E551E58F1552498BE15CE1 /* [CP] Check Pods Manifest.lock */,
 				2DB7879B29828F5700C29D40 /* Sources */,
 				2DB7879C29828F5700C29D40 /* Frameworks */,
 				2D5844442A62920300CFDA8C /* ShellScript */,
 				2D3D8D962A74EC8B002C27F0 /* Resources */,
-				D9B2E8A5DEB6CE952553C417 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -285,6 +259,9 @@
 				2DE667562A74F970005E1AB5 /* FirebaseCrashlytics */,
 				2DE667582A74F970005E1AB5 /* FirebaseStorage */,
 				2DFD2B592A76A32A000DDF02 /* PhoneNumberKit */,
+				2D97CFD42A780BB400217A8C /* JGProgressHUD */,
+				2D97CFD82A7810A600217A8C /* GoogleSignIn */,
+				2D97CFDA2A7810A600217A8C /* GoogleSignInSwift */,
 			);
 			productName = GetColor;
 			productReference = 2DB7879F29828F5700C29D40 /* GetColor.app */;
@@ -294,7 +271,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DB787CC29828F5900C29D40 /* Build configuration list for PBXNativeTarget "GetColorTests" */;
 			buildPhases = (
-				940BAE613CB796851F674DD6 /* [CP] Check Pods Manifest.lock */,
 				2DB787B129828F5900C29D40 /* Sources */,
 				2DB787B229828F5900C29D40 /* Frameworks */,
 				2DB787B329828F5900C29D40 /* Resources */,
@@ -313,11 +289,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2DB787CF29828F5900C29D40 /* Build configuration list for PBXNativeTarget "GetColorUITests" */;
 			buildPhases = (
-				262FB3EFEF472896BCE2A239 /* [CP] Check Pods Manifest.lock */,
 				2DB787BB29828F5900C29D40 /* Sources */,
 				2DB787BC29828F5900C29D40 /* Frameworks */,
 				2DB787BD29828F5900C29D40 /* Resources */,
-				3A7FDC1088592B7BD8DEA75E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,7 +337,9 @@
 			mainGroup = 2DB7879629828F5700C29D40;
 			packageReferences = (
 				2DE667512A74F970005E1AB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
-				2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit.git" */,
+				2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
+				2D97CFD32A780BB400217A8C /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
+				2D97CFD72A7810A500217A8C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 			);
 			productRefGroup = 2DB787A029828F5700C29D40 /* Products */;
 			projectDirPath = "";
@@ -404,28 +380,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		262FB3EFEF472896BCE2A239 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GetColor-GetColorUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		2D5844442A62920300CFDA8C /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -441,85 +395,8 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\n";
-		};
-		3A7FDC1088592B7BD8DEA75E /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GetColor-GetColorUITests/Pods-GetColor-GetColorUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GetColor-GetColorUITests/Pods-GetColor-GetColorUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetColor-GetColorUITests/Pods-GetColor-GetColorUITests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		940BAE613CB796851F674DD6 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GetColorTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D4E551E58F1552498BE15CE1 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-GetColor-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D9B2E8A5DEB6CE952553C417 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GetColor/Pods-GetColor-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-GetColor/Pods-GetColor-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GetColor/Pods-GetColor-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
+			shellScript = "
+";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -715,10 +592,10 @@
 		};
 		2DB787CA29828F5900C29D40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B41A4BA60DFC86AA247FEB92 /* Pods-GetColor.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GetColor/GetColorDebug.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_INJECT_BASE_ENTITLEMENTS = NO;
 				CODE_SIGN_STYLE = Automatic;
@@ -751,7 +628,6 @@
 		};
 		2DB787CB29828F5900C29D40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 852E8DAC57A47E633B366B97 /* Pods-GetColor.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -787,7 +663,6 @@
 		};
 		2DB787CD29828F5900C29D40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CAD9FEDBC539D157012A5371 /* Pods-GetColorTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -808,7 +683,6 @@
 		};
 		2DB787CE29828F5900C29D40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 54D78AA1552A6556AD2A42F1 /* Pods-GetColorTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -829,7 +703,6 @@
 		};
 		2DB787D029828F5900C29D40 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 92FD802C637126CC18BA9ACF /* Pods-GetColor-GetColorUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -848,7 +721,6 @@
 		};
 		2DB787D129828F5900C29D40 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FC67F9526C4184C00A9598F5 /* Pods-GetColor-GetColorUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -907,6 +779,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		2D97CFD32A780BB400217A8C /* XCRemoteSwiftPackageReference "JGProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/JonasGessner/JGProgressHUD.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		2D97CFD72A7810A500217A8C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		2DE667512A74F970005E1AB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -915,7 +803,7 @@
 				minimumVersion = 10.0.0;
 			};
 		};
-		2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit.git" */ = {
+		2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/marmelroy/PhoneNumberKit.git";
 			requirement = {
@@ -926,6 +814,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D97CFD42A780BB400217A8C /* JGProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D97CFD32A780BB400217A8C /* XCRemoteSwiftPackageReference "JGProgressHUD" */;
+			productName = JGProgressHUD;
+		};
+		2D97CFD82A7810A600217A8C /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D97CFD72A7810A500217A8C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		2D97CFDA2A7810A600217A8C /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D97CFD72A7810A500217A8C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
 		2DE667522A74F970005E1AB5 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2DE667512A74F970005E1AB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
@@ -948,7 +851,7 @@
 		};
 		2DFD2B592A76A32A000DDF02 /* PhoneNumberKit */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit.git" */;
+			package = 2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */;
 			productName = PhoneNumberKit;
 		};
 /* End XCSwiftPackageProductDependency section */
