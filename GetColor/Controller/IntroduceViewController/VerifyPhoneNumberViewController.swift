@@ -76,15 +76,13 @@ class VerifyPhoneNumberViewController: UIViewController {
         let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
         let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!, verificationCode: verifyCodeTextField.text!)
         Auth.auth().signIn(with: credential) {(authResult, error) in
-            print("===> error: ",error)
             if error != nil {
                 self.errorCodeLabel.alpha = 1
                 self.errorCodeLabel.textColor = UIColor.red
                 self.errorCodeLabel.text = "Wrong digit. Try Again"
             }
             else {
-                let vc = (self.storyboard?.instantiateViewController(identifier: "CheckUserInfoViewController"))! as CheckUserInfoViewController
-                vc.phoneNumber = self.phoneNumber
+                let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }

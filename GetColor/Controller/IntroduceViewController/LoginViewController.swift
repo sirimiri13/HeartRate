@@ -8,68 +8,56 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import CountryPicker
 
-class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class LoginViewController: UIViewController, UITextFieldDelegate,  CountryPickerDelegate {
+  
+    
+    func countryPicker(didSelect country: CountryPicker.Country) {
+        countryCodeTextField.text = country.isoCode.getFlag() + " +" + country.phoneCode
+        selectedCode = "+"+country.phoneCode
+    }
+    
    
     
     
     @IBOutlet weak var phoneTextField: UITextField!
-    @IBOutlet weak var countryTextFields: UITextField!
+    @IBOutlet weak var countryCodeTextField: UITextField!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var signinButton: UIButton!
     @IBOutlet weak var facebookLoginButton: UIButton!
     @IBOutlet weak var googleLoginButton: UIButton!
-    var countryCodes = [[String]]()
     let currentCountryCode: String? = Locale.current.regionCode
+    var selectedCode : String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.facebookLoginButton.tintColor = AppColor.colorFaceBookButton
-        picker()
-        self.countryCodes = Utilities.getAllCountryCodes()
-        countryTextFields.isUserInteractionEnabled = true
         setElements()
-    }
-    
-    func picker(){
-        let picker = UIPickerView()
-        picker.delegate = self
-        picker.dataSource = self
-        countryTextFields.inputView = picker
-        let code = GlobalConstants.Constants.codePrefixes[currentCountryCode ?? "US"]
+       let  phoneCode = (GlobalConstants.Constants.codePrefixes[self.currentCountryCode ?? "US"]?[1]) ?? "+1"
+        
+        countryCodeTextField.text = currentCountryCode!.getFlag() + " +" + phoneCode
+selectedCode = "+"+phoneCode
 
-        countryTextFields.text = "+\(code![1])"
-        picker.selectRow(0, inComponent: 0, animated: true)
     }
     
-
-    
-    
-    
-    override func viewDidLayoutSubviews() {
-//        countryTextFields.borderStyle = colorTheme
-//        countryTextFields.styleTextField(color: colorTheme)
-//        phoneTextField.styleTextField(color: colorTheme)
-    }
     
     func setElements(){
         signinButton.backgroundColor = AppColor.colorButton
         warningLabel.alpha = 0
-//        phoneTextField.text = ''
         phoneTextField.tintColor = AppColor.colorTheme
-        let rightView = UIImageView(image: UIImage(systemName:"arrowtriangle.down.fill")!)
-//        countryTextFields.setRightView(image: UIImage(systemName:"arrowtriangle.down.fill")!,color: UIColor.gray)
-        countryTextFields.rightView = rightView
         warningLabel.textColor = UIColor.red
+
         
-      
-       
+        let tap = UITapGestureRecognizer(target: self, action: #selector(showAlert(button:)))
+        self.countryCodeTextField.addGestureRecognizer(tap)
     }
     
-    
-   
+  
     @IBAction func verifyTapped(_ sender: Any) {
 //        if (Connectivity.isConnectedToInternet) {
-            let phoneNumber = countryTextFields.text! + phoneTextField.text!
+            let phoneNumber = selectedCode + phoneTextField.text!
+    print("===> phoneNumber: ",phoneNumber)
         if !Utilities.isValidPhoneNumber(phoneNumber) {
                 warningLabel.text = "Invalid phone number"
                 warningLabel.alpha = 1
@@ -86,7 +74,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
                     UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
                     let phone  = Utilities.getPhoneNumber(from: phoneNumber)
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
-                    vc.phoneNumber = countryTextFields.text! + String(phone!.nationalNumber)
+                    vc.phoneNumber = countryCodeTextField.text! + String(phone!.nationalNumber)
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
@@ -94,26 +82,20 @@ class LoginViewController: UIViewController, UITextFieldDelegate, UIPickerViewDe
         }
         
     }
-    
-    
-    
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+  
+    @objc func showAlert(button: UIButton) {
+        let countryPicker = CountryPickerViewController()
+        countryPicker.selectedCountry = currentCountryCode ?? "US"
+        countryPicker.delegate = self
+        self.present(countryPicker, animated: true)
     }
+//    private func startPicker() {
+//        let countryPicker = CountryPickerViewController()
+//        countryPicker.selectedCountry = currentCountryCode ?? "US"
+//        countryPicker.delegate = self
+//        self.present(countryPicker, animated: true)
+//    }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return countryCodes.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let code = countryCodes[row]
-        return "\(code[0]) +\(code[1])"
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        let code = countryCodes[row]
-        countryTextFields.text = "+\(code[1])"
-    }
 }
 
 

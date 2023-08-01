@@ -97,7 +97,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.session.stopRunning()
+        self.session?.stopRunning()
     }
     
     

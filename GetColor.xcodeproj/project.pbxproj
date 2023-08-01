@@ -15,6 +15,9 @@
 		2D97CFD52A780BB400217A8C /* JGProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFD42A780BB400217A8C /* JGProgressHUD */; };
 		2D97CFD92A7810A600217A8C /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFD82A7810A600217A8C /* GoogleSignIn */; };
 		2D97CFDB2A7810A600217A8C /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFDA2A7810A600217A8C /* GoogleSignInSwift */; };
+		2D97CFDE2A7946DA00217A8C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D97CFDD2A7946DA00217A8C /* MainViewController.swift */; };
+		2D97CFE12A794A2800217A8C /* NKVPhonePicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFE02A794A2800217A8C /* NKVPhonePicker */; };
+		2D97CFE42A794C7F00217A8C /* CountryPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 2D97CFE32A794C7F00217A8C /* CountryPicker */; };
 		2DA389452A74E8D2001B3A64 /* GlobalConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA389442A74E8D2001B3A64 /* GlobalConstant.swift */; };
 		2DA389472A74E922001B3A64 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DA389462A74E922001B3A64 /* Utilities.swift */; };
 		2DB787A329828F5700C29D40 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DB787A229828F5700C29D40 /* AppDelegate.swift */; };
@@ -33,7 +36,6 @@
 		2DE6675E2A74FB30005E1AB5 /* VerifyCodeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DE6675D2A74FB30005E1AB5 /* VerifyCodeTextField.swift */; };
 		2DFD2B5A2A76A32A000DDF02 /* PhoneNumberKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2DFD2B592A76A32A000DDF02 /* PhoneNumberKit */; };
 		2DFD2B5B2A77ED7F000DDF02 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DB787AB29828F5900C29D40 /* Assets.xcassets */; };
-		2DFD2B5D2A77F05D000DDF02 /* CheckUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFD2B5C2A77F05D000DDF02 /* CheckUserInfoViewController.swift */; };
 		2DFD2B5F2A77F235000DDF02 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DFD2B5E2A77F235000DDF02 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
@@ -60,6 +62,7 @@
 		2D9701562A6030B90051702E /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2D97015F2A6031EC0051702E /* IntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntroduceViewController.swift; sourceTree = "<group>"; };
 		2D97CFD62A780F8000217A8C /* GetColorDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = GetColorDebug.entitlements; sourceTree = "<group>"; };
+		2D97CFDD2A7946DA00217A8C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2DA389442A74E8D2001B3A64 /* GlobalConstant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalConstant.swift; sourceTree = "<group>"; };
 		2DA389462A74E922001B3A64 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		2DB7879F29828F5700C29D40 /* GetColor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetColor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,7 +82,6 @@
 		2DE6674F2A74F8A3005E1AB5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2DE6675A2A74FA9C005E1AB5 /* VerifyPhoneNumberViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyPhoneNumberViewController.swift; sourceTree = "<group>"; };
 		2DE6675D2A74FB30005E1AB5 /* VerifyCodeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyCodeTextField.swift; sourceTree = "<group>"; };
-		2DFD2B5C2A77F05D000DDF02 /* CheckUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserInfoViewController.swift; sourceTree = "<group>"; };
 		2DFD2B5E2A77F235000DDF02 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,9 +91,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2DE667532A74F970005E1AB5 /* FirebaseAnalytics in Frameworks */,
+				2D97CFE12A794A2800217A8C /* NKVPhonePicker in Frameworks */,
 				2DE667572A74F970005E1AB5 /* FirebaseCrashlytics in Frameworks */,
 				2DE667552A74F970005E1AB5 /* FirebaseAuth in Frameworks */,
 				2D97CFDB2A7810A600217A8C /* GoogleSignInSwift in Frameworks */,
+				2D97CFE42A794C7F00217A8C /* CountryPicker in Frameworks */,
 				2DFD2B5A2A76A32A000DDF02 /* PhoneNumberKit in Frameworks */,
 				2D97CFD52A780BB400217A8C /* JGProgressHUD in Frameworks */,
 				2DE667592A74F970005E1AB5 /* FirebaseStorage in Frameworks */,
@@ -138,6 +142,7 @@
 		2D9701582A6031410051702E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				2D97CFDC2A7946BB00217A8C /* MainViewController */,
 				2D97015C2A6031910051702E /* IntroduceViewController */,
 				2DB787A629828F5700C29D40 /* ViewController.swift */,
 			);
@@ -167,9 +172,16 @@
 				2D97015F2A6031EC0051702E /* IntroduceViewController.swift */,
 				2D1DCEFE2A604346004EF4D5 /* LoginViewController.swift */,
 				2DE6675A2A74FA9C005E1AB5 /* VerifyPhoneNumberViewController.swift */,
-				2DFD2B5C2A77F05D000DDF02 /* CheckUserInfoViewController.swift */,
 			);
 			path = IntroduceViewController;
+			sourceTree = "<group>";
+		};
+		2D97CFDC2A7946BB00217A8C /* MainViewController */ = {
+			isa = PBXGroup;
+			children = (
+				2D97CFDD2A7946DA00217A8C /* MainViewController.swift */,
+			);
+			path = MainViewController;
 			sourceTree = "<group>";
 		};
 		2DB7879629828F5700C29D40 = {
@@ -262,6 +274,8 @@
 				2D97CFD42A780BB400217A8C /* JGProgressHUD */,
 				2D97CFD82A7810A600217A8C /* GoogleSignIn */,
 				2D97CFDA2A7810A600217A8C /* GoogleSignInSwift */,
+				2D97CFE02A794A2800217A8C /* NKVPhonePicker */,
+				2D97CFE32A794C7F00217A8C /* CountryPicker */,
 			);
 			productName = GetColor;
 			productReference = 2DB7879F29828F5700C29D40 /* GetColor.app */;
@@ -340,6 +354,8 @@
 				2DFD2B582A76A32A000DDF02 /* XCRemoteSwiftPackageReference "PhoneNumberKit" */,
 				2D97CFD32A780BB400217A8C /* XCRemoteSwiftPackageReference "JGProgressHUD" */,
 				2D97CFD72A7810A500217A8C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				2D97CFDF2A794A2800217A8C /* XCRemoteSwiftPackageReference "NKVPhonePicker" */,
+				2D97CFE22A794C7F00217A8C /* XCRemoteSwiftPackageReference "CountryPicker" */,
 			);
 			productRefGroup = 2DB787A029828F5700C29D40 /* Products */;
 			projectDirPath = "";
@@ -408,11 +424,11 @@
 				2DA389452A74E8D2001B3A64 /* GlobalConstant.swift in Sources */,
 				2DB787A729828F5700C29D40 /* ViewController.swift in Sources */,
 				2DB787A329828F5700C29D40 /* AppDelegate.swift in Sources */,
-				2DFD2B5D2A77F05D000DDF02 /* CheckUserInfoViewController.swift in Sources */,
 				2D1B38C42A3ED41900C23BF1 /* Helper.swift in Sources */,
 				2D9701602A6031EC0051702E /* IntroduceViewController.swift in Sources */,
 				2D1DCEFF2A604346004EF4D5 /* LoginViewController.swift in Sources */,
 				2DE6675E2A74FB30005E1AB5 /* VerifyCodeTextField.swift in Sources */,
+				2D97CFDE2A7946DA00217A8C /* MainViewController.swift in Sources */,
 				2DB787A529828F5700C29D40 /* SceneDelegate.swift in Sources */,
 				2DB787D32983A85500C29D40 /* GraphView.swift in Sources */,
 				2DA389472A74E922001B3A64 /* Utilities.swift in Sources */,
@@ -795,6 +811,22 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		2D97CFDF2A794A2800217A8C /* XCRemoteSwiftPackageReference "NKVPhonePicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/NikKovIos/NKVPhonePicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
+		2D97CFE22A794C7F00217A8C /* XCRemoteSwiftPackageReference "CountryPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mobven/CountryPicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.0;
+			};
+		};
 		2DE667512A74F970005E1AB5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -828,6 +860,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2D97CFD72A7810A500217A8C /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		2D97CFE02A794A2800217A8C /* NKVPhonePicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D97CFDF2A794A2800217A8C /* XCRemoteSwiftPackageReference "NKVPhonePicker" */;
+			productName = NKVPhonePicker;
+		};
+		2D97CFE32A794C7F00217A8C /* CountryPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2D97CFE22A794C7F00217A8C /* XCRemoteSwiftPackageReference "CountryPicker" */;
+			productName = CountryPicker;
 		};
 		2DE667522A74F970005E1AB5 /* FirebaseAnalytics */ = {
 			isa = XCSwiftPackageProductDependency;
