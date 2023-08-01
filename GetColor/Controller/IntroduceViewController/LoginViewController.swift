@@ -9,16 +9,17 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import CountryPicker
+import GoogleSignIn
 
 class LoginViewController: UIViewController, UITextFieldDelegate,  CountryPickerDelegate {
-  
+    
     
     func countryPicker(didSelect country: CountryPicker.Country) {
         countryCodeTextField.text = country.isoCode.getFlag() + " +" + country.phoneCode
         selectedCode = "+"+country.phoneCode
     }
     
-   
+    
     
     
     @IBOutlet weak var phoneTextField: UITextField!
@@ -34,11 +35,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate,  CountryPicker
         super.viewDidLoad()
         self.facebookLoginButton.tintColor = AppColor.colorFaceBookButton
         setElements()
-       let  phoneCode = (GlobalConstants.Constants.codePrefixes[self.currentCountryCode ?? "US"]?[1]) ?? "+1"
+        let  phoneCode = (GlobalConstants.Constants.codePrefixes[self.currentCountryCode ?? "US"]?[1]) ?? "+1"
         
         countryCodeTextField.text = currentCountryCode!.getFlag() + " +" + phoneCode
-selectedCode = "+"+phoneCode
-
+        selectedCode = "+"+phoneCode
+        
     }
     
     
@@ -47,21 +48,21 @@ selectedCode = "+"+phoneCode
         warningLabel.alpha = 0
         phoneTextField.tintColor = AppColor.colorTheme
         warningLabel.textColor = UIColor.red
-
+        
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(showAlert(button:)))
         self.countryCodeTextField.addGestureRecognizer(tap)
     }
     
-  
+    
     @IBAction func verifyTapped(_ sender: Any) {
-//        if (Connectivity.isConnectedToInternet) {
-            let phoneNumber = selectedCode + phoneTextField.text!
-    print("===> phoneNumber: ",phoneNumber)
+        //        if (Connectivity.isConnectedToInternet) {
+        let phoneNumber = selectedCode + phoneTextField.text!
+        print("===> phoneNumber: ",phoneNumber)
         if !Utilities.isValidPhoneNumber(phoneNumber) {
-                warningLabel.text = "Invalid phone number"
-                warningLabel.alpha = 1
-            }
+            warningLabel.text = "Invalid phone number"
+            warningLabel.alpha = 1
+        }
         else {
             PhoneAuthProvider.provider().verifyPhoneNumber(phoneNumber, uiDelegate: nil) { [self] (verificationId, error) in
                 if let err = error {
@@ -71,6 +72,7 @@ selectedCode = "+"+phoneCode
                 }
                 else {
                     warningLabel.alpha = 0
+                    UserDefaults.standard.set("login",forKey:"userStatus")
                     UserDefaults.standard.set(verificationId, forKey: "authVerificationID")
                     let phone  = Utilities.getPhoneNumber(from: phoneNumber)
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "VerifyPhoneNumberViewController") as! VerifyPhoneNumberViewController
@@ -78,27 +80,58 @@ selectedCode = "+"+phoneCode
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
             }
-
+            
         }
         
     }
-  
-    @objc func showAlert(button: UIButton) {
-        let countryPicker = CountryPickerViewController()
-        countryPicker.selectedCountry = currentCountryCode ?? "US"
-        countryPicker.delegate = self
-        self.present(countryPicker, animated: true)
+    @IBAction func loginByFacebookTapped(_ sender: Any) {
     }
-//    private func startPicker() {
-//        let countryPicker = CountryPickerViewController()
-//        countryPicker.selectedCountry = currentCountryCode ?? "US"
-//        countryPicker.delegate = self
-//        self.present(countryPicker, animated: true)
-//    }
+    @IBAction func loginByGoogleTapped(_ sender: Any) {
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+        
+        // Create Google Sign In configuration object.
+        let config = GIDConfiguration(clientID: clientID)
+        GIDSignIn.sharedInstance.configuration = config
+        
+        // Start the sign in flow!
+        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
+            guard error == nil else {
+                return
+            }
+            
+            guard let user = result?.user,
+                  let idToken = user.idToken?.tokenString
+            else {
+                return          }
+            
+            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
+                                                           accessToken: user.accessToken.tokenString)
+            print("credential: \(credential)")
+            Auth.auth().signIn(with: credential) { [unowned self] (result, error) in
+                
+               if let error = error {
+                 print(error.localizedDescription)
+               } else {
+                   UserDefaults.standard.set("login",forKey:"userStatus")
+                   let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
+                   self.navigationController?.pushViewController(vc, animated: true)
+
+               }
+             }
+        }
+        }
+        
+        @objc func showAlert(button: UIButton) {
+            let countryPicker = CountryPickerViewController()
+            countryPicker.selectedCountry = currentCountryCode ?? "US"
+            countryPicker.delegate = self
+            self.present(countryPicker, animated: true)
+        }
+        
+        
+    }
     
-}
-
-
-
-
-
+    
+    
+    
+    

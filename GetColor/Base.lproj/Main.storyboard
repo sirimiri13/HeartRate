@@ -286,6 +286,9 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                     <color key="baseBackgroundColor" systemColor="linkColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="loginByFacebookTapped:" destination="iia-9i-0Pp" eventType="touchUpInside" id="Ee6-uG-ioU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mge-2U-xfc">
                                 <rect key="frame" x="46.666666666666657" y="763" width="299.66666666666674" height="45"/>
@@ -300,6 +303,9 @@
                                     <fontDescription key="titleFontDescription" type="boldSystem" pointSize="15"/>
                                     <color key="baseBackgroundColor" systemColor="systemRedColor"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <action selector="loginByGoogleTapped:" destination="iia-9i-0Pp" eventType="touchUpInside" id="KIC-Dx-QY8"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lmN-Lo-goF"/>
