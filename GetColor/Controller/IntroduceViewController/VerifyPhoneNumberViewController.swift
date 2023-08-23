@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 
 class VerifyPhoneNumberViewController: UIViewController {
-
+    
     var phoneNumber: String = ""
     
     
@@ -19,7 +19,7 @@ class VerifyPhoneNumberViewController: UIViewController {
     @IBOutlet weak var errorCodeLabel: UILabel!
     @IBOutlet weak var continueButton: UIButton!
     @IBOutlet weak var resendButton: UIButton!
-   
+    
     
     
     override func viewDidLoad() {
@@ -50,7 +50,7 @@ class VerifyPhoneNumberViewController: UIViewController {
         continueButton.backgroundColor = UIColor.gray
         continueButton.tintColor = UIColor.lightGray
         continueButton.isUserInteractionEnabled = false
-//        continueButton.setShadow()
+        //        continueButton.setShadow()
         
         verifyCodeTextField.configure()
         verifyCodeTextField.didEnterLastDigit = {[weak self] code in
@@ -68,23 +68,47 @@ class VerifyPhoneNumberViewController: UIViewController {
         resendButton.setTitle("Resend code", for: .normal)
         resendButton.tintColor = AppColor.colorTheme
         
-       
+        continueButton.tintColor = AppColor.pinkBackground
+        continueButton.setShadow()
+        
+        
     }
     
     
     @IBAction func VerifyTapped(_ sender: Any) {
-        let verificationID = UserDefaults.standard.string(forKey: "authVerificationID")
-        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!, verificationCode: verifyCodeTextField.text!)
-        Auth.auth().signIn(with: credential) {(authResult, error) in
-            if error != nil {
+        //        let verificationID = UserDefaults.standard.string(forKey: kVERIFICATIONCODE)
+        //        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID!, verificationCode: verifyCodeTextField.text!)
+        //        Auth.auth().signIn(with: credential) {(authResult, error) in
+        //            if error != nil {
+        //                self.errorCodeLabel.alpha = 1
+        //                self.errorCodeLabel.textColor = UIColor.red
+        //                self.errorCodeLabel.text = "Wrong digit. Try Again"
+        //            }
+        //            else {
+        //                UserDefaults.standard.set("login",forKey:"userStatus")
+        //                DataManager.shared.set(phone: self.phoneNumber, password: self.phoneNumber)
+        //                let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
+        //                self.navigationController?.pushViewController(vc, animated: true)
+        //            }
+        //        }
+        let verificationID = UserDefaults.standard.string(forKey: kVERIFICATIONCODE)
+        print("====> verification id: \(verificationID)")
+        let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID ?? "authVerificationID" , verificationCode: verifyCodeTextField.text!)
+        User.authenticateUser(credential: credential, userDetails: [kPHONENUMBER: phoneNumber]) { (user, error) in //authenticate and get user
+            if let error = error {
                 self.errorCodeLabel.alpha = 1
                 self.errorCodeLabel.textColor = UIColor.red
                 self.errorCodeLabel.text = "Wrong digit. Try Again"
+                //                completion(nil, error)
+                return
             }
-            else {
-                let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
+            UserDefaults.standard.set("login",forKey:"userStatus")
+            DataManager.shared.set(phone: self.phoneNumber, password: self.phoneNumber)
+            let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
+            self.navigationController?.pushViewController(vc, animated: true)
+            UserDefaults.standard.removeObject(forKey: kVERIFICATIONCODE)
+            UserDefaults.standard.synchronize() //remove code
+            //            completion(user, nil)
         }
     }
     
@@ -103,5 +127,5 @@ class VerifyPhoneNumberViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-
+    
 }

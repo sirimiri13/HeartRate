@@ -102,14 +102,12 @@ PODS:
   - PhoneNumberKit/UIKit (3.3.4):
     - PhoneNumberKit/PhoneNumberKitCore
   - PromisesObjC (2.2.0)
-  - TextFieldEffects (1.6.0)
 
 DEPENDENCIES:
   - Firebase/Analytics (= 8.1.0)
   - FirebaseAuth
   - JGProgressHUD
   - PhoneNumberKit
-  - TextFieldEffects
 
 SPEC REPOS:
   trunk:
@@ -127,7 +125,6 @@ SPEC REPOS:
     - nanopb
     - PhoneNumberKit
     - PromisesObjC
-    - TextFieldEffects
 
 SPEC CHECKSUMS:
   Firebase: b5956acddaaa53a6c292bec00649fadd18367344
@@ -144,8 +141,7 @@ SPEC CHECKSUMS:
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
   PhoneNumberKit: 441e8b26ec88d598e3591de9061eff18f5dd12e8
   PromisesObjC: 09985d6d70fbe7878040aa746d78236e6946d2ef
-  TextFieldEffects: 529b8aff706fb40f82c41c780c0777941a893796
 
-PODFILE CHECKSUM: b8002cf07b9121ad68a75befebebeaa1dc399418
+PODFILE CHECKSUM: d0f6e0535699cd81bad800e18c80c63823a0d3bb
 
 COCOAPODS: 1.11.2

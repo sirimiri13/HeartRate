@@ -26,8 +26,8 @@ post_install do |installer|
 end
 
 
+
   	pod 'PhoneNumberKit'
-	pod 'TextFieldEffects'
 	pod 'FirebaseAuth'	
 	pod 'Firebase/Analytics', '8.1.0'
 	pod 'JGProgressHUD'

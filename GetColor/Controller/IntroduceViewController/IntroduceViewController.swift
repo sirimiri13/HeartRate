@@ -24,7 +24,7 @@ class IntroduceViewController: UIViewController {
     
     func setUpView(){
         self.view.backgroundColor = AppColor.colorTheme
-        self.signinButton?.tintColor = AppColor.colorButton
+        self.signinButton?.tintColor = AppColor.pinkBackground
         self.signupButton?.titleLabel?.textColor = UIColor.white
         
     }

@@ -19,3 +19,4 @@ DerivedData
 !default.xcworkspace
 #CocoaPods
 Pods
+Podfile.lock
