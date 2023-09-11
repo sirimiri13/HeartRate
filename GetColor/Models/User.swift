@@ -8,6 +8,7 @@
 
 import Foundation
 import FirebaseAuth
+import UIKit
 
 
 class User: NSObject {
@@ -24,7 +25,7 @@ class User: NSObject {
     }
     
     var phoneNumber: String
-//    var profileImage: UIImage = kDEFAULTPROFILEIMAGE
+    var profileImage: UIImage = kDEFAULTPROFILEIMAGE
     let createdAt: Date
     var updatedAt: Date
     var authTypes: [AuthType]
@@ -232,17 +233,17 @@ func assignFullName(fName: String, lName: String) -> String { //returns full nam
     }
 }
 //
-//func saveProfileImage(id: String = kPROFILEIMAGE, profileImage: UIImage) {
-//    let imageData: Data = profileImage.jpegData(compressionQuality: 0.2)!
-//    UserDefaults.standard.set(imageData, forKey: id)
-//    UserDefaults.standard.synchronize()
-//}
+func saveProfileImage(id: String = kPROFILEIMAGE, profileImage: UIImage) {
+    let imageData: Data = profileImage.jpegData(compressionQuality: 0.2)!
+    UserDefaults.standard.set(imageData, forKey: id)
+    UserDefaults.standard.synchronize()
+}
 
-//func loadProfileImage(id: String = kPROFILEIMAGE) -> UIImage? {
-//    return UIImage(data: UserDefaults.standard.data(forKey: id)!)
-//}
-//
-//func deleteProfileImage(id: String = kPROFILEIMAGE) {
-//    UserDefaults.standard.removeObject(forKey: id)
-//    UserDefaults.standard.synchronize()
-//}
+func loadProfileImage(id: String = kPROFILEIMAGE) -> UIImage? {
+    return UIImage(data: UserDefaults.standard.data(forKey: id)!)
+}
+
+func deleteProfileImage(id: String = kPROFILEIMAGE) {
+    UserDefaults.standard.removeObject(forKey: id)
+    UserDefaults.standard.synchronize()
+}

@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseDatabase
+import UIKit
 
 struct UserConstants {
     static let tokenKey = "ACCESS_TOKEN_KEY"
@@ -61,3 +62,4 @@ public let kUSER: String = "user"
 public let kMESSAGES: String = "message"
 public let kPUSHID: String = "pushId"
 public let kPROFILEIMAGE: String = "profileImage"
+public let kDEFAULTPROFILEIMAGE: UIImage = UIImage(named: "profile_photo")!

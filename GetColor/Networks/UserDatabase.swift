@@ -71,6 +71,7 @@ extension User {
                 completion(nil, "No user results found")
                 return
             }
+           
             if userResult.additionalUserInfo!.isNewUser { //if new user, REGISTER and SAVE
                 guard let providerId: String = userResult.additionalUserInfo?.providerID else {
                     completion(nil, "No user provider id found")
@@ -94,6 +95,7 @@ extension User {
                 completion(user, nil)
             } else { //if not new user LOGIN and UPDATE
                 fetchUserWith(userId: userResult.user.uid) { (user) in
+                    print("=====> user: \(String(describing: user))")
                     guard let user = user else {
                         completion(nil, "Error fetching user")
                         return
@@ -104,16 +106,16 @@ extension User {
                         saveUserInBackground(user: user)
                         completion(user, nil)
                     } else { //if we have an imageUrl, assign it to user's profileImage and save it
-//                        getUserImage(imageUrl: user.imageUrl) { (error, image) in
-//                            if let error = error {
-//                                completion(nil, error)
-//                            }
-//                            user.updatedAt = Date()
-////                            saveProfileImage(id: user.imageUrl, profileImage: image!)
-//                            saveUserLocally(user: user)
-//                            saveUserInBackground(user: user)
-//                            completion(user, nil)
-//                        }
+                        getUserImage(imageUrl: user.imageUrl) { (error, image) in
+                            if let error = error {
+                                completion(nil, error)
+                            }
+                            user.updatedAt = Date()
+                         saveProfileImage(id: user.imageUrl, profileImage: image!)
+                            saveUserLocally(user: user)
+                            saveUserInBackground(user: user)
+                            completion(user, nil)
+                        }
                     }
                 }
             }

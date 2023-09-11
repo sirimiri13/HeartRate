@@ -7,7 +7,7 @@
 
 
 import UIKit
-//import FirebaseStorage
+import FirebaseStorage
 
 //MARK: Save Image in Storage
 func getImageURL(id: String, image: UIImage, completion: @escaping(_ imageURL: String?, _ error: String?) -> Void) { //method that grabs an image, and user's id to save it to, compress it as JPEG, store in Storage, and returning the URL if no error

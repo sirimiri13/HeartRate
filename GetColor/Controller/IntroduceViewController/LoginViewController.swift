@@ -15,7 +15,7 @@ import FacebookCore
 
 
 
-class LoginViewController: UIViewController, UITextFieldDelegate,  CountryPickerDelegate {
+class LoginViewController: UIViewController, UITextFieldDelegate,  CountryPickerDelegate  {
     func countryPicker(didSelect country: CountryPicker.Country) {
         countryCodeTextField.text = country.isoCode.getFlag() + " +" + country.phoneCode
         selectedCode = "+"+country.phoneCode
@@ -145,42 +145,61 @@ class LoginViewController: UIViewController, UITextFieldDelegate,  CountryPicker
         
     }
     @IBAction func loginByGoogleTapped(_ sender: Any) {
-//        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
-//
-//        // Create Google Sign In configuration object.
-//        let config = GIDConfiguration(clientID: clientID)
-//        GIDSignIn.sharedInstance.configuration = config
-//
-//        // Start the sign in flow!
-//        GIDSignIn.sharedInstance.signIn(withPresenting: self) { [unowned self] result, error in
-//            guard error == nil else {
-//                return
-//            }
-//
-//            guard let user = result?.user,
-//                  let idToken = user.idToken?.tokenString
-//            else {
-//                return          }
-//
-//            let credential = GoogleAuthProvider.credential(withIDToken: idToken,
-//                                                           accessToken: user.accessToken.tokenString)
-//            print("credential: \(credential)")
-//            Auth.auth().signIn(with: credential) { [unowned self] (result, error) in
-//
-//                if let error = error {
-//                    print(error.localizedDescription)
-//                } else {
-//                    UserDefaults.standard.set("login",forKey:"userStatus")
-//                    let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
-//                    self.navigationController?.pushViewController(vc, animated: true)
-//
-//                }
-//            }
-//        }
+//      
         
-        GIDSignIn.sharedInstance.presentingViewController = self
-        GIDSignIn.sharedInstance.delegate = self
-        GIDSignIn.sharedInstance.signIn()
+        guard let clientID = FirebaseApp.app()?.options.clientID else { return }
+                
+        let config = GIDConfiguration(clientID: clientID)
+
+        GIDSignIn.sharedInstance.configuration = config
+        GIDSignIn.sharedInstance.signIn(
+            withPresenting: self) { user, error in
+                
+            if let error = error {
+                // Handle error if sign-in fails
+                print("Google Sign-In error: \(error.localizedDescription)")
+                return
+            }
+            
+            // User is signed in successfully
+                guard let idToken = user?.user.idToken,
+                      let accessToken = user?.user.accessToken else {
+                // Handle case when authentication data is missing
+                print("Google Sign-In failed: No authentication data")
+                return
+            }
+//            let currentUser = user?.user
+//
+//            let userId = user?.user.userID // For client-side use only!
+//            print("USER = \(user)")
+//            print("USER PROFILE = \(user.user.profile.debugDescription)")
+//            print("USER DESCRIPTION = \(user.user.profile.description.debugDescription)")
+//            print("USER ID \(user?.user.userID)\nAUTH AUTH ID \(user.user.idToken)\nACCESSTOKEN \(user.user.accessToken)") //access token is what allows you to get into the database. //idToken is
+            let firstName = user!.user.profile?.givenName ?? ""
+            let lastName = user!.user.profile?.familyName ?? ""
+            let email = user!.user.profile?.email ?? ""
+            var userDetails = [kFIRSTNAME: firstName, kLASTNAME: lastName, kEMAIL: email]
+//            if ((user!.user.profile?.hasImage) != nil) {
+//                let imageUrl = user!.user.profile?.imageURL(withDimension: 100)
+//                print("\(firstName)'s Image URL from Google = \(String(describing: imageUrl))")
+//                userDetails[kIMAGEURL] = imageUrl?.absoluteString
+//            }
+//
+                let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString) //are we goin to need a session token
+            User.authenticateUser(credential: credential, userDetails: userDetails) { (user, error) in //authenticate user with credentials and get user
+                if let error = error {
+                    Service.presentAlert(on: self, title: "Google Error", message: error)
+                    return
+                }
+                goToNextController(vc: self, user: user!)
+            }
+            // Create a GoogleAuthProvider credential using the obtained tokens
+//            let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString,
+//                                                           accessToken: accessToken.tokenString)
+            
+            // Perform sign-in with the credential using your own services or backend
+          
+        }
     }
     
     @objc func showAlert(button: UIButton) {
@@ -253,54 +272,54 @@ extension LoginViewController: LoginButtonDelegate {
     }
 }
 
-
-extension LoginViewController: GIDSignInDelegate {
-    func signInWillDispatch(_ signIn: GIDSignIn!, error: Error!) {
-        print("GOOGLE SIGNINWILLDISPATCH?")
-    }
-    
-    func signIn(_ signIn: GIDSignIn!,
-                presentViewController viewController: UIViewController!) { //presents the google signin screen
-        self.present(viewController, animated: true, completion: nil)
-    }
-    
-    func signIn(_ signIn: GIDSignIn!,
-                dismissViewController viewController: UIViewController!) { //when user dismisses the google signin screen
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
-              withError error: Error!) {
-        if let error = error {
-            Service.presentAlert(on: self, title: "Google Authentication Error", message: error.localizedDescription)
-            return
-        } else {
-            //MARK: USE user.userID as password and objectId
+//
+//extension LoginViewController: GIDSignInDelegate {
+//    func signInWillDispatch(_ signIn: GIDSignIn!, error: Error!) {
+//        print("GOOGLE SIGNINWILLDISPATCH?")
+//    }
+//
+//    func signIn(_ signIn: GIDSignIn!,
+//                presentViewController viewController: UIViewController!) { //presents the google signin screen
+//        self.present(viewController, animated: true, completion: nil)
+//    }
+//
+//    func signIn(_ signIn: GIDSignIn!,
+//                dismissViewController viewController: UIViewController!) { //when user dismisses the google signin screen
+//        self.dismiss(animated: true, completion: nil)
+//    }
+//
+//    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+//              withError error: Error!) {
+//        if let error = error {
+//            Service.presentAlert(on: self, title: "Google Authentication Error", message: error.localizedDescription)
+//            return
+//        } else {
+//            //MARK: USE user.userID as password and objectId
 //            let userId = user.userID // For client-side use only!
 //            let idToken = user.authentication.idToken // Safe to send to the server
 //            let fullName = user.profile.name
-            print("USER = \(user)")
-            print("USER PROFILE = \(user.profile.debugDescription)")
-            print("USER DESCRIPTION = \(user.profile.description.debugDescription)")
-            print("USER ID \(user.userID)\nAUTH AUTH ID \(user.authentication.idToken)\nACCESSTOKEN \(user.authentication.accessToken)") //access token is what allows you to get into the database. //idToken is
-            let firstName = user.profile.givenName ?? ""
-            let lastName = user.profile.familyName ?? ""
-            let email = user.profile.email ?? ""
-            var userDetails = [kFIRSTNAME: firstName, kLASTNAME: lastName, kEMAIL: email]
-            if user.profile.hasImage {
-                let imageUrl = user.profile.imageURL(withDimension: 100)
-                print("\(firstName)'s Image URL from Google = \(String(describing: imageUrl))")
-                userDetails[kIMAGEURL] = imageUrl?.absoluteString
-            }
-            guard let authentication = user.authentication else { return }
-            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken) //are we goin to need a session token
-            User.authenticateUser(credential: credential, userDetails: userDetails) { (user, error) in //authenticate user with credentials and get user
-                if let error = error {
-                    Service.presentAlert(on: self, title: "Google Error", message: error)
-                    return
-                }
-                goToNextController(vc: self, user: user!)
-            }
-        }
-    }
-}
+//            print("USER = \(user)")
+//            print("USER PROFILE = \(user.profile.debugDescription)")
+//            print("USER DESCRIPTION = \(user.profile.description.debugDescription)")
+//            print("USER ID \(user.userID)\nAUTH AUTH ID \(user.authentication.idToken)\nACCESSTOKEN \(user.authentication.accessToken)") //access token is what allows you to get into the database. //idToken is
+//            let firstName = user.profile?.givenName ?? ""
+//            let lastName = user.profile?.familyName ?? ""
+//            let email = user.profile?.email ?? ""
+//            var userDetails = [kFIRSTNAME: firstName, kLASTNAME: lastName, kEMAIL: email]
+//            if user.profile?.hasImage {
+//                let imageUrl = user.profile.imageURL(withDimension: 100)
+//                print("\(firstName)'s Image URL from Google = \(String(describing: imageUrl))")
+//                userDetails[kIMAGEURL] = imageUrl?.absoluteString
+//            }
+//            guard let authentication = user.authentication else { return }
+//            let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken) //are we goin to need a session token
+//            User.authenticateUser(credential: credential, userDetails: userDetails) { (user, error) in //authenticate user with credentials and get user
+//                if let error = error {
+//                    Service.presentAlert(on: self, title: "Google Error", message: error)
+//                    return
+//                }
+//                goToNextController(vc: self, user: user!)
+//            }
+//        }
+//    }
+//}

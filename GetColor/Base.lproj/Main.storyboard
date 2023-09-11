@@ -638,7 +638,7 @@
         <!--Account Name & Photo-->
         <scene sceneID="c7g-ls-ggw">
             <objects>
-                <viewController storyboardIdentifier="finishRegistrationVC" modalPresentationStyle="fullScreen" id="CqE-Gb-5U2" customClass="FinishRegistrationVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="finishRegistrationVC" modalPresentationStyle="fullScreen" id="CqE-Gb-5U2" customClass="FinishRegistrationVC" customModule="GetColor" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="sH7-f6-Nio">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -694,7 +694,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uSD-RE-fyI" customClass="UnderlinedTextField" customModule="FolledoUserAuth" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="uSD-RE-fyI" customClass="UnderlinedTextField" customModule="GetColor" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28.333333333333318" width="172" height="50.333333333333343"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -713,7 +713,7 @@
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jyg-zM-vgp" userLabel="Last Name" customClass="UnderlinedTextField" customModule="FolledoUserAuth" customModuleProvider="target">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jyg-zM-vgp" userLabel="Last Name" customClass="UnderlinedTextField" customModule="GetColor" customModuleProvider="target">
                                                                 <rect key="frame" x="0.0" y="28.333333333333318" width="171.66666666666666" height="50.333333333333343"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
@@ -744,7 +744,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="g8y-p7-yky" customClass="UnderlinedTextField" customModule="FolledoUserAuth" customModuleProvider="target">
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="14" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="g8y-p7-yky" customClass="UnderlinedTextField" customModule="GetColor" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="26.666666666666689" width="353.66666666666669" height="52.333333333333343"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="words"/>

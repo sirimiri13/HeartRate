@@ -95,15 +95,17 @@ class VerifyPhoneNumberViewController: UIViewController {
         print("====> verification id: \(verificationID)")
         let credential = PhoneAuthProvider.provider().credential(withVerificationID: verificationID ?? "authVerificationID" , verificationCode: verifyCodeTextField.text!)
         User.authenticateUser(credential: credential, userDetails: [kPHONENUMBER: phoneNumber]) { (user, error) in //authenticate and get user
-            if let error = error {
+            if error != nil {
+                print("====? err: \(String(describing: error))")
                 self.errorCodeLabel.alpha = 1
                 self.errorCodeLabel.textColor = UIColor.red
                 self.errorCodeLabel.text = "Wrong digit. Try Again"
                 //                completion(nil, error)
                 return
             }
+            print("====> login successfully")
             UserDefaults.standard.set("login",forKey:"userStatus")
-            DataManager.shared.set(phone: self.phoneNumber, password: self.phoneNumber)
+//            DataManager.shared.set(phone: self.phoneNumber, password: self.phoneNumber)
             let vc = (self.storyboard?.instantiateViewController(identifier: "MainViewController"))! as MainViewController
             self.navigationController?.pushViewController(vc, animated: true)
             UserDefaults.standard.removeObject(forKey: kVERIFICATIONCODE)
